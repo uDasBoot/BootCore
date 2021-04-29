@@ -6,6 +6,7 @@ import com.udasboot.bootcore.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class AbstractMachineBlock extends Block{
 	
@@ -78,7 +80,14 @@ public abstract class AbstractMachineBlock extends Block{
 		return ActionResultType.CONSUME;
 	}
 
-	public abstract void interactWith(World worldIn, BlockPos pos, PlayerEntity player);
+	public void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
+		TileEntity tileEntity = worldIn.getBlockEntity(pos);
+		if (tileEntityClass.isInstance(tileEntity) && player instanceof ServerPlayerEntity) {
+			if (player != null) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, tileEntityClass.cast(tileEntity), pos);
+			}
+		}
+	}
 	
 	@SuppressWarnings("deprecation")
 	@Override

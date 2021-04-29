@@ -114,11 +114,11 @@ public abstract class AbstractGeneratorContainer extends Container {
 		return (double) this.getEnergy() / (double) this.getMaxEnergy();
 	}
 	
-	public int getEx1() {
+	public int getExtractionRate() {
 		return this.data.get(4);
 	}
 	
-	public int getEx2() {
+	public int getGenerationRate() {
 		return this.data.get(5);
 	}
 	
@@ -130,8 +130,8 @@ public abstract class AbstractGeneratorContainer extends Container {
 		return this.data.get(7);
 	}
 	
-	public boolean getEx5() {
-		return (this.data.get(8) == 1) ? true: false;
+	public boolean isGenerating() {
+		return this.getProgress() > 0;
 	}
 	
 	public boolean getEx6() {

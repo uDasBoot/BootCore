@@ -91,7 +91,7 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 		super(tileEntityType);
 		this.slots = slots;
 		items = NonNullList.withSize(this.slots, ItemStack.EMPTY);
-		this.maxEnergy = 4000;
+		this.maxEnergy = 20000;
 		this.totalProgressTime = 200;
 	}
 
@@ -174,8 +174,8 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		int energyRecieved = ((this.energy + maxReceive) > this.maxEnergy) ? this.maxEnergy : maxReceive;
-		if (!simulate) {
+		int energyRecieved = ((this.energy + maxReceive) > this.maxEnergy) ? 0 : maxReceive;
+		if (!simulate && energyRecieved != 0) {
 			this.energy += energyRecieved;
 		}
 		return energyRecieved;
@@ -183,8 +183,8 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int energyExtracted = (this.energy < maxExtract) ? this.energy : maxExtract;
-		if (!simulate) {
+		int energyExtracted = (this.energy < maxExtract) ? 0 : maxExtract;
+		if (!simulate && energyExtracted != 0) {
 			this.energy -= energyExtracted;
 		}
 		return energyExtracted;

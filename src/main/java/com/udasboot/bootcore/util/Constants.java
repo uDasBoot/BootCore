@@ -13,7 +13,7 @@ public class Constants {
 	
 	private String MOD_ID;
 	public static HashMap<String, String> CONSTANTS = new HashMap<String, String>();
-	public static AbstractBlock.Properties DEFAULT_PROPS = AbstractBlock.Properties.of(Material.GLASS, MaterialColor.COLOR_GRAY).strength(50f, 1200f)
+	public static AbstractBlock.Properties DEFAULT_PROPS = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).strength(50f, 1200f)
 			.harvestTool(ToolType.PICKAXE).sound(SoundType.STONE).harvestLevel(4)
 			.requiresCorrectToolForDrops();
 	
