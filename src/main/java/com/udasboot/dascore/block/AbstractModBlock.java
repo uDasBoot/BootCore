@@ -1,6 +1,6 @@
-package com.udasboot.bootcore.block;
+package com.udasboot.dascore.block;
 
-import com.udasboot.bootcore.util.Constants;
+import com.udasboot.dascore.util.Constants;
 
 import net.minecraft.block.Block;
 
@@ -11,7 +11,7 @@ public abstract class AbstractModBlock extends Block{
 	}
 
 	public AbstractModBlock() {
-		this(Constants.DEFAULT_PROPS);
+		this(Constants.DEFAULT_BLOCK_PROPS);
 	}
 	
 }

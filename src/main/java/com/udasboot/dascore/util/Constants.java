@@ -1,4 +1,4 @@
-package com.udasboot.bootcore.util;
+package com.udasboot.dascore.util;
 
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ public class Constants {
 	
 	private String MOD_ID;
 	public static HashMap<String, String> CONSTANTS = new HashMap<String, String>();
-	public static final AbstractBlock.Properties DEFAULT_PROPS = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).strength(50f, 1200f)
+	public static final AbstractBlock.Properties DEFAULT_BLOCK_PROPS = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).strength(50f, 1200f)
 			.harvestTool(ToolType.PICKAXE).sound(SoundType.STONE).harvestLevel(4)
 			.requiresCorrectToolForDrops();
 	

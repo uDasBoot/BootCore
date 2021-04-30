@@ -1,4 +1,4 @@
-package com.udasboot.bootcore.tileentity;
+package com.udasboot.dascore.tileentity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +25,10 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 	protected int maxEnergy;
 	protected int progressTime;
 	protected int totalProgressTime;
-	protected int ex1, ex2, ex3, ex4;
-	protected boolean ex5, ex6;
+	protected int energyUsage;
+	protected boolean hasEnoughEnergy;
+	protected int ex1, ex2, ex3;
+	protected boolean ex4;
 
 	public final IIntArray dataAccess = new IIntArray() {
 		public int get(int index) {
@@ -40,17 +42,17 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 			case 3:
 				return AbstractMachineTileEntity.this.totalProgressTime;
 			case 4:
-				return AbstractMachineTileEntity.this.ex1;
+				return AbstractMachineTileEntity.this.energyUsage;
 			case 5:
-				return AbstractMachineTileEntity.this.ex2;
+				return AbstractMachineTileEntity.this.ex1;
 			case 6:
-				return AbstractMachineTileEntity.this.ex3;
+				return AbstractMachineTileEntity.this.ex2;
 			case 7:
-				return AbstractMachineTileEntity.this.ex4;
+				return AbstractMachineTileEntity.this.ex3;
 			case 8:
-				return AbstractMachineTileEntity.this.ex5 ? 1 : 0;
+				return AbstractMachineTileEntity.this.hasEnoughEnergy ? 1 : 0;
 			case 9:
-				return AbstractMachineTileEntity.this.ex6 ? 1 : 0;
+				return AbstractMachineTileEntity.this.ex4 ? 1 : 0;
 			default:
 				return 0;
 			}
@@ -68,17 +70,17 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 			case 3:
 				AbstractMachineTileEntity.this.totalProgressTime = value;
 			case 4:
-				AbstractMachineTileEntity.this.ex1 = value;
+				AbstractMachineTileEntity.this.energyUsage = value;
 			case 5:
-				AbstractMachineTileEntity.this.ex2 = value;
+				AbstractMachineTileEntity.this.ex1 = value;
 			case 6:
-				AbstractMachineTileEntity.this.ex3 = value;
+				AbstractMachineTileEntity.this.ex2 = value;
 			case 7:
-				AbstractMachineTileEntity.this.ex4 = value;
+				AbstractMachineTileEntity.this.ex3 = value;
 			case 8:
-				AbstractMachineTileEntity.this.ex5 = (value == 1);
+				AbstractMachineTileEntity.this.hasEnoughEnergy = (value == 1);
 			case 9:
-				AbstractMachineTileEntity.this.ex6 = (value == 1);
+				AbstractMachineTileEntity.this.ex4 = (value == 1);
 			}
 		}
 
@@ -93,11 +95,23 @@ public abstract class AbstractMachineTileEntity extends LockableTileEntity
 		items = NonNullList.withSize(this.slots, ItemStack.EMPTY);
 		this.maxEnergy = 20000;
 		this.totalProgressTime = 200;
+		this.energyUsage = 40;
+		this.hasEnoughEnergy = false;
 	}
 
 	@Override
 	public void tick() {
+		if(!this.level.isClientSide) {
+			this.hasEnoughEnergy = (this.energy > this.energyUsage);
+			if(this.hasEnoughEnergy && this.isInUse()) {
+				this.extractEnergy(energyUsage, false);
+			}
+		}
 		updateExData();
+	}
+	
+	public boolean isInUse() {
+		return this.progressTime > 0;
 	}
 
 	public void updateExData() {

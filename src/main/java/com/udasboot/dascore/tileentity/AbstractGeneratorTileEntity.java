@@ -1,4 +1,4 @@
-package com.udasboot.bootcore.tileentity;
+package com.udasboot.dascore.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;

@@ -1,9 +1,9 @@
-package com.udasboot.bootcore.container;
+package com.udasboot.dascore.container;
 
 import java.util.Objects;
 
-import com.udasboot.bootcore.block.AbstractGeneratorBlock;
-import com.udasboot.bootcore.tileentity.AbstractGeneratorTileEntity;
+import com.udasboot.dascore.block.AbstractMachineBlock;
+import com.udasboot.dascore.tileentity.AbstractMachineTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,22 +17,22 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
 
-public abstract class AbstractGeneratorContainer extends Container {
+public abstract class AbstractMachineContainer extends Container {
 
-	public final AbstractGeneratorTileEntity te;
+	public final AbstractMachineTileEntity te;
 	public final IWorldPosCallable canInteractWithCallable;
 	public final IIntArray data;
 	public final int invSize;
-	public final AbstractGeneratorBlock parentBlock;
+	public final AbstractMachineBlock parentBlock;
 
-	protected <T extends AbstractGeneratorTileEntity> AbstractGeneratorContainer(ContainerType<? extends AbstractGeneratorContainer> type, int windowId,
+	protected <T extends AbstractMachineTileEntity> AbstractMachineContainer(ContainerType<? extends AbstractMachineContainer> type, int windowId,
 			PlayerInventory playerInventory, T te, IIntArray data, Block block) {
 		super(type, windowId);
-		this.te = (AbstractGeneratorTileEntity) te;
+		this.te = (AbstractMachineTileEntity) te;
 		this.canInteractWithCallable = IWorldPosCallable.create(te.getLevel(), te.getBlockPos());
 		this.data = data;
 		this.invSize = te.slots;
-		this.parentBlock = (AbstractGeneratorBlock) block;
+		this.parentBlock = (AbstractMachineBlock) block;
 		
 		addInvSlots();
 		for (int row = 0; row < 3; row++) {
@@ -48,13 +48,13 @@ public abstract class AbstractGeneratorContainer extends Container {
 		this.addDataSlots(data);
 	}
 	
-	protected static AbstractGeneratorTileEntity getTileEntity(final PlayerInventory playerInventory,
+	protected static AbstractMachineTileEntity getTileEntity(final PlayerInventory playerInventory,
 			final PacketBuffer data) {
 		Objects.requireNonNull(playerInventory, "Player Inventory cannot be null!");
 		Objects.requireNonNull(data, "Packet Buffer cannot be null!");
 		final TileEntity te = playerInventory.player.level.getBlockEntity(data.readBlockPos());
-		if (te instanceof AbstractGeneratorTileEntity) {
-			return (AbstractGeneratorTileEntity) te;
+		if (te instanceof AbstractMachineTileEntity) {
+			return (AbstractMachineTileEntity) te;
 		}
 		throw new IllegalStateException("Tile Entity is not correct!");
 	}
@@ -114,11 +114,11 @@ public abstract class AbstractGeneratorContainer extends Container {
 		return (double) this.getEnergy() / (double) this.getMaxEnergy();
 	}
 	
-	public int getExtractionRate() {
+	public int getEx1() {
 		return this.data.get(4);
 	}
 	
-	public int getGenerationRate() {
+	public int getEx2() {
 		return this.data.get(5);
 	}
 	
@@ -130,8 +130,8 @@ public abstract class AbstractGeneratorContainer extends Container {
 		return this.data.get(7);
 	}
 	
-	public boolean isGenerating() {
-		return this.getProgress() > 0;
+	public boolean getEx5() {
+		return (this.data.get(8) == 1) ? true: false;
 	}
 	
 	public boolean getEx6() {

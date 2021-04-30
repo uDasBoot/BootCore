@@ -1,4 +1,4 @@
-package com.udasboot.bootcore.container;
+package com.udasboot.dascore.container;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;

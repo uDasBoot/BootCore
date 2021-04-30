@@ -1,7 +1,7 @@
-package com.udasboot.bootcore.block;
+package com.udasboot.dascore.block;
 
-import com.udasboot.bootcore.tileentity.AbstractMachineTileEntity;
-import com.udasboot.bootcore.util.Constants;
+import com.udasboot.dascore.tileentity.AbstractMachineTileEntity;
+import com.udasboot.dascore.util.Constants;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,7 +32,7 @@ public abstract class AbstractMachineBlock extends Block{
 	public final Class<? extends AbstractMachineTileEntity> tileEntityClass;
 
 	public AbstractMachineBlock(Class<? extends AbstractMachineTileEntity> tileEntityClass) {
-		this(Constants.DEFAULT_PROPS, tileEntityClass);
+		this(Constants.DEFAULT_BLOCK_PROPS, tileEntityClass);
 	}
 	
 	public AbstractMachineBlock(Properties props, Class<? extends AbstractMachineTileEntity> tileEntityClass) {

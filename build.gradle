@@ -12,9 +12,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.0.1'
+version = '0.1.0'
 group = 'com.udasboot' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'DasCore'
+archivesBaseName = 'dascore'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
@@ -168,7 +168,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            url "file://C:/Users/micah/Documents/GitHub/DasCore"
         }
     }
 }
